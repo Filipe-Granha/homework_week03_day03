@@ -34,14 +34,6 @@ class Album
   end
 
 
-
-
-
-
-
-
-
-
   def save()
     sql = "INSERT INTO albums (name, year, artist_id, genre) 
       VALUES ('#{@name}', #{@year}, #{@artist_id}, '#{@genre}')

@@ -3,6 +3,13 @@ require('pry-byebug')
 require_relative("../models/album")
 require_relative("../models/artist")
 
+
+Album.delete_all()
+Artist.delete_all()
+
+
+
+
 artist_1 = Artist.new({
   "name" => "Incubus"
   })
@@ -35,6 +42,9 @@ album_3 = Album.new({
 album_1.save()
 album_2.save()
 album_3.save()
+
+
+
 
 binding.pry
 nil
