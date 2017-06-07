@@ -7,6 +7,11 @@ class Album
   attr_accessor :name, :year, :artist_id, :genre
   attr_reader :id
 
+
+
+
+
+
   def initialize(options)
     @id = options["id"].to_i if options["id"]
     @name =  options["name"]
@@ -16,9 +21,14 @@ class Album
   end
 
 
-  def update()
+
+
+
+
+
+  def update() #working
     sql = "
-    UPDATE pizza_orders SET (
+    UPDATE albums SET (
       name,
       artist_id,
       year,
@@ -27,14 +37,20 @@ class Album
       '#{@name}',
       #{@artist_id},
       #{@year},
-      '#{@genre}'
+      '#{@genre}')
     WHERE id = #{@id}"
     result = SqlRunner.run(sql)
     return result
   end
 
 
-  def save()
+
+
+
+
+
+
+  def save() #working
     sql = "INSERT INTO albums (name, year, artist_id, genre) 
       VALUES ('#{@name}', #{@year}, #{@artist_id}, '#{@genre}')
       RETURNING id;"
@@ -43,18 +59,25 @@ class Album
 
 
 
-  def artist()
+
+
+
+
+  def artist() #working
     sql = "SELECT * FROM artists WHERE id = #{@artist_id}"
     result = SqlRunner.run(sql)
     artist_data = result[0]
     artist = Artist.new(artist_data)
-
     return artist
   end 
 
 
 
-  def Album.all()
+
+
+
+
+  def Album.all() #working
     sql = "SELECT * FROM albums"
     result = SqlRunner.run(sql)
     return result.map {|album| Album.new(album)}
@@ -62,12 +85,41 @@ class Album
 
 
 
-  def Album.delete_all()
+
+
+
+
+  def Album.delete_all() #working
     sql = "DELETE FROM albums"
     SqlRunner.run(sql)
   end
 
 
+
+
+
+
+
+
+  def delete() #working
+    sql = "DELETE FROM albums WHERE id = #{@id}"
+    SqlRunner.run(sql)
+  end
+
+
+
+
+
+
+
+
+  def Album.find(id) #working
+    sql = "SELECT * FROM albums WHERE id = #{id}"
+    results = SqlRunner.run(sql)
+    album_hash = results.first
+    album = Album.new(album_hash)
+    return album
+  end
 
 
 
